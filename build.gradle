@@ -24,6 +24,10 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
     implementation 'org.springframework:spring-webmvc:6.2.6'
+// Core Spring Security modules for web apps (Version 6.4.2)
+    implementation 'org.springframework.security:spring-security-web:6.4.2'
+    implementation 'org.springframework.security:spring-security-config:6.4.2'
+
 
     // 2. JSTL API & Implementation (Bắt buộc dùng bản 3.0+ của jakarta để chạy trên Tomcat 10)
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
