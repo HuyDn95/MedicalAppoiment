@@ -1,11 +1,10 @@
 package com.clinic.repository;
 
 import com.clinic.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+public interface UserRepository {
+    User save(User user);
+    Optional<User> findByUsername(String username);
     boolean existsByUsername(String username);
 }

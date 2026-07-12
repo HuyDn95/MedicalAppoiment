@@ -49,7 +49,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     @Override
     public List<Appointment> findAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Appointment", Appointment.class)
+                .createQuery("FROM Appointment a JOIN FETCH a.patient JOIN FETCH a.doctor", Appointment.class)
                 .list();
     }
 }

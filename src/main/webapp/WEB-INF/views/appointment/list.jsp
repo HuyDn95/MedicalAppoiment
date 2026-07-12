@@ -33,7 +33,7 @@
                 <td>${appt.id}</td>
                 <td>${appt.patient.fullName}</td>
                 <td>${appt.doctor.fullName}</td>
-                <td><fmt:formatDate value="${appt.appointmentTime}" pattern="dd/MM/yyyy HH:mm"/></td>
+                <td>${appt.appointmentTime.dayOfMonth}/${appt.appointmentTime.monthValue}/${appt.appointmentTime.year} ${appt.appointmentTime.hour}:${appt.appointmentTime.minute}</td>
                 <td>${appt.reason}</td>
                 <td><span class="status-${appt.status}">${appt.status}</span></td>
                 <td>

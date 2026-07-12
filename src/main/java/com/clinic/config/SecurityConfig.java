@@ -1,11 +1,10 @@
 package com.clinic.config;
 
-import com.clinic.service.UserService;
+import com.clinic.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,11 +17,11 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = "com.clinic.config")
+@ComponentScan(basePackages = "com.clinic.security")
 public class SecurityConfig {
 
     @Autowired
-    private UserService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

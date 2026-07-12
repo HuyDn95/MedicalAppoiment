@@ -14,6 +14,7 @@
 </nav>
 <div class="content">
     <form action="${pageContext.request.contextPath}/login" method="post" class="form-box">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <c:if test="${param.error != null}">
             <div class="alert-error"><p>Sai tên đăng nhập hoặc mật khẩu.</p></div>
         </c:if>

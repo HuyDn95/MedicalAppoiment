@@ -5,6 +5,7 @@ import com.clinic.model.Appointment;
 import com.clinic.service.AppointmentService;
 import com.clinic.validator.AppointmentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class AppointmentController {
     private AppointmentValidator appointmentValidator;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','RECEPTIONIST')")
     public String listAppointments(Model model) {
         List<Appointment> appointments = appointmentService.getAllAppointments();
         model.addAttribute("appointments", appointments);
@@ -30,12 +32,14 @@ public class AppointmentController {
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasAnyRole('ADMIN','RECEPTIONIST')")
     public String showBookingForm(Model model) {
         model.addAttribute("appointmentRequest", new AppointmentRequestDTO());
         return "appointment/form";
     }
 
     @PostMapping("/book")
+    @PreAuthorize("hasAnyRole('ADMIN','RECEPTIONIST')")
     public String bookAppointment(@ModelAttribute("appointmentRequest") AppointmentRequestDTO request,
                                   BindingResult bindingResult, Model model) {
         appointmentValidator.validate(request, bindingResult);
@@ -47,18 +51,21 @@ public class AppointmentController {
     }
 
     @GetMapping("/patient/{patientId}")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','RECEPTIONIST')")
     public String getByPatient(@PathVariable Long patientId, Model model) {
         model.addAttribute("appointments", appointmentService.getAppointmentsByPatient(patientId));
         return "appointment/list";
     }
 
     @PostMapping("/{id}/confirm")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR')")
     public String confirm(@PathVariable Long id) {
         appointmentService.confirmAppointment(id);
         return "redirect:/appointments";
     }
 
     @PostMapping("/{id}/cancel")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR')")
     public String cancel(@PathVariable Long id) {
         appointmentService.cancelAppointment(id);
         return "redirect:/appointments";

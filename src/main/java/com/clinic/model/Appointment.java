@@ -2,11 +2,13 @@ package com.clinic.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointments")
 @Data
+@ToString(exclude = {"patient", "doctor"})
 public class Appointment {
 
     @Id

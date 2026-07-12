@@ -2,11 +2,13 @@ package com.clinic.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import java.util.List;
 
 @Entity
 @Table(name = "doctors")
 @Data
+@ToString(exclude = {"appointments"})
 public class Doctor {
 
     @Id

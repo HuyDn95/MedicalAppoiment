@@ -3,6 +3,7 @@ package com.clinic.controller;
 import com.clinic.model.Patient;
 import com.clinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +16,21 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','RECEPTIONIST')")
     public String listPatients(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
         return "patient/list";
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasAnyRole('ADMIN','RECEPTIONIST')")
     public String showCreateForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "patient/form";
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAnyRole('ADMIN','RECEPTIONIST')")
     public String savePatient(@ModelAttribute("patient") Patient patient) {
         patientService.createPatient(patient);
         return "redirect:/patients";

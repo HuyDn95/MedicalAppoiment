@@ -1,9 +1,8 @@
 package com.clinic.controller;
 
 import com.clinic.dto.RegisterRequestDTO;
-import com.clinic.model.User;
 import com.clinic.service.UserService;
-//import com.clinic.validator.RegisterValidator;
+import com.clinic.validator.RegisterValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +15,8 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private RegisterValidator registerValidator;
+    @Autowired
+    private RegisterValidator registerValidator;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -28,15 +27,11 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute("registerRequest") RegisterRequestDTO request,
                            BindingResult bindingResult, Model model) {
-//        registerValidator.validate(request, bindingResult);
+        registerValidator.validate(request, bindingResult);
         if (bindingResult.hasErrors()) {
             return "auth/register";
         }
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setFullName(request.getFullName());
-        userService.save(user);
+        userService.registerUser(request);
         return "redirect:/login?registered=true";
     }
 

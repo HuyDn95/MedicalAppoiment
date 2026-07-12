@@ -81,4 +81,4 @@ INSERT INTO appointments (patient_id, doctor_id, appointment_time, status, reaso
                                                                                        (3, 3, '2026-07-11 10:00:00', 'PENDING',   'Kiểm tra tim mạch định kỳ');
 
 INSERT INTO users (username, password, full_name, role) VALUES
-    ('admin', '$2a$10$replace_with_bcrypt_hash', 'Quản trị viên', 'ADMIN');
+    ('admin', '$2b$10$3q0f0NKc2K3fjwAyJRz6..jSVZRzzTPc3ft5c3NyfGZ6vSR3Pk9XG', 'Quản trị viên', 'ADMIN');
